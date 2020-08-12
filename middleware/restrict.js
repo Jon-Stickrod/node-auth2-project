@@ -4,6 +4,7 @@ const roles = [
     "suspended",
 	"sales",
 	"management",
+	"musac",
 ]
 
 function restrict(role) {
@@ -20,7 +21,7 @@ function restrict(role) {
 
 		try {
 			//const token = req.cookies.token // read cookie
-			const token = req.headers.token // for build week
+			const token = req.headers.authorization // for build week
 
 			if (!token) {
 				return res.status(401).json(authError3)
@@ -30,7 +31,7 @@ function restrict(role) {
 				if (err) {
 					return res.status(401).json(authError)
 				}
-
+				//console.log(decoded);
 				if (role && roles.indexOf(decoded.department) < roles.indexOf(role)) {
 					return res.status(401).json(authError2)
 				}
